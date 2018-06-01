@@ -11,10 +11,11 @@
     "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src test"
   },
   "dependencies": {
-    "web3": "1.0.0-beta.33",
+    "web3": "1.0.0-beta.34",
     "web3-provider-engine": "^13.8.0"
   },
   "devDependencies": {
+    "web3": "1.0.0-beta.34",
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
