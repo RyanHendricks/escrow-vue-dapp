@@ -1,0 +1,15 @@
+export default {
+  updateInterval: 6000,
+  account: null,
+  balance: null,
+  network: null,
+  unlocked: null,
+  rpcUrl: null,
+  blockNumber: null,
+  gasPrice: null,
+  fallbackHost: 'http://127.0.0.1:8545',
+  connected: null,
+  isInjected: null,
+  provider: null,
+  metamaskDisabled: false,
+};
