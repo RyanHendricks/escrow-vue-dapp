@@ -2,7 +2,9 @@
   <q-page
     padding
     class="row justify-center">
-    <div style="width: 600px; max-width: 90vw;">
+    <div
+      class="col; q-ma-md"
+      style="width: 600px; max-width: 90vw;">
       <SendETH />
     </div>
   </q-page>

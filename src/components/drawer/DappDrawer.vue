@@ -12,7 +12,7 @@
         </q-item-main>
 
         <q-item-side>
-          <q-chip color="secondary">{{ functions[method.name].toString() }}</q-chip>
+          <q-chip color="secondary">{{ functions[method.name] }}</q-chip>
         </q-item-side>
 
       </q-item>

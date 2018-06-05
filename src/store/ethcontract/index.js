@@ -4,12 +4,9 @@ import * as mutations from './mutations';
 import * as getters from './getters';
 import state from './state';
 import { Notify } from 'quasar';
-import VeoEscrowArtifacts from './VeoEscrow.js'
-
+import VeoEscrowArtifacts from './VeoEscrow.js';
 
 const actions = {
-
-
   async deployEscrowContract({ rootState, commit, dispatch }, payload) {
     const abi = JSON.parse(VeoEscrowArtifacts.abi);
     const bin = VeoEscrowArtifacts.bin;
@@ -30,60 +27,61 @@ const actions = {
     EscrowContract.options.data = bin;
     try {
       await EscrowContract.deploy({
-        arguments: [buyer, seller, amount]
+        arguments: [buyer, seller, amount],
       })
         .send({ from: fromAddress })
-        .on('error', (error) => {
+        .on('error', error => {
           console.log(error);
         })
-        .on('transactionHash', (hash) => {
+        .on('transactionHash', hash => {
           console.log(hash);
           dispatch('createNotify', hash);
           commit('SET_TXN_HASH', hash);
         })
-        .on('receipt', (receipt) => {
+        .on('receipt', receipt => {
           let ContractAddress = receipt.contractAddress;
-          console.log(ContractAddress); // contains the new contract address 
+          console.log(ContractAddress); // contains the new contract address
           dispatch('createNotify', contractAddress);
           commit('SET_CONTRACT_ADDRESS', ContractAddress);
-
         })
-        .then((newContractInstance) => {
+        .then(newContractInstance => {
           const contractAddress = newContractInstance.options.address;
           commit('SET_CONTRACT_INSTANCE', newContractInstance);
           commit('SET_CONTRACT_ADDRESS', contractAddress);
-
         });
     } catch (e) {
       console.error(e);
     }
-    // commit('SET_CONTRACT_ADDRESS', constractAddress); 
-    // dispatch('callConstants'); 
   },
 
   async sendTransaction({ state, commit, dispatch }, payload) {
-    const BN = global.web3.utils.BN;
-    const amount = new BN(payload.amount).toString();
-    const value2Send = global.web3.utils.toWei(amount, 'ether');
+    try {
+      const BN = global.web3.utils.BN;
+      const amount = new BN(payload.amount).toString();
+      const value2Send = global.web3.utils.toWei(amount, 'ether');
 
-    console.log(value2Send);
+      console.log(value2Send);
 
-    await global.web3.eth.sendTransaction({
-      from: payload.fromAddress,
-      to: payload.toAddress,
-      value: value2Send,
-    })
-      .on('transactionHash', (hash) => {
-        dispatch('createNotify', hash);
-      })
-      .on('receipt', (receipt) => {
-        commit('SET_TXN_RECEIPT', receipt);
-      })
-      .once('confirmation', (confirmationNumber) => {
-        let txnText = ('Confirmation: ' + confirmationNumber);
-        dispatch('createNotify', txnText);
-      })
-      .on('error', console.error); // If a out of gas error, the second parameter is the receipt.
+      await global.web3.eth
+        .sendTransaction({
+          from: payload.fromAddress,
+          to: payload.toAddress,
+          value: value2Send,
+        })
+        .on('transactionHash', hash => {
+          dispatch('createNotify', hash);
+        })
+        .on('receipt', receipt => {
+          commit('SET_TXN_RECEIPT', receipt);
+        })
+        .once('confirmation', confirmationNumber => {
+          let txnText = 'Confirmation: ' + confirmationNumber;
+          dispatch('createNotify', txnText);
+        })
+        .on('error', console.error);
+    } catch (e) {
+      console.error(e);
+    }
   },
 
   async createContractInstance({ dispatch, commit, state }, payload) {
@@ -91,7 +89,10 @@ const actions = {
       await commit('SET_CONTRACT_ADDRESS', payload.address);
       await commit('SET_CONTRACT_NETWORK', payload.network);
       await commit('SET_CONTRACT_ABI', payload.abi);
-      let MyContract = await new global.web3.eth.Contract(state.contract.abi, state.contract.address);
+      let MyContract = await new global.web3.eth.Contract(
+        state.contract.abi,
+        state.contract.address,
+      );
       await commit('SET_CONTRACT_INSTANCE', MyContract);
       let address = payload.address;
       dispatch('createNotify', 'Contract Loaded');
@@ -100,7 +101,6 @@ const actions = {
     } catch (e) {
       console.log(e);
     }
-
   },
 
   async setMethodValues({ commit, state }, payload) {
@@ -118,16 +118,14 @@ const actions = {
       // let MyContract = await new global.web3.eth.Contract(state.contract.abi, state.contract.address);
       let MyContract = state.instance;
       let call = MyContract.methods[name].apply(MyContract.methods);
-      let result = await call.call()
-        .then((result) => {
-          console.log(result);
-          console.log('vuex callContract');
-          commit('SET_CONTRACT_CONSTANT', result);
-          return result;
-        });
+      let result = await call.call().then(result => {
+        console.log(result);
+        console.log('vuex callContract');
+        commit('SET_CONTRACT_CONSTANT', result);
+        return result;
+      });
       // dispatch('createNotify', result);
       // dispatch('readContract')
-
     } catch (e) {
       // dispatch('createNotify', e);
     }
@@ -137,10 +135,9 @@ const actions = {
     let constFunctions = getters.constantFunctions;
     console.log(constFunctions);
     const call = constFunctions.methods[name].apply(constFunctions.methods);
-    const value = await call.call()
-      .then((result) => {
-        dispatch('createNotify', value);
-      });
+    const value = await call.call().then(result => {
+      dispatch('createNotify', value);
+    });
   },
   /**
    *   async function makeCall({ state, dispatch, commit }, name) {
@@ -150,12 +147,6 @@ const actions = {
     vm.$emit('CALL_SYNCED', { key, method, args, value })
   },
   */
-
-
-
-
-
-
 
   async readContracts() {
     /**  
@@ -179,7 +170,7 @@ const actions = {
       const totalEscrowAmount = await dispatch('readContract', methodName);
   */
     const methodsCalled = [];
-    state.contract.abi.forEach((method) => {
+    state.contract.abi.forEach(method => {
       let name = method.name;
       console.log(name);
       const response = dispatch('callContract', name);
@@ -187,13 +178,15 @@ const actions = {
       console.log(response);
       dispatch('createNotify', name);
       return response;
-    })
+    });
   },
 
   async readContractConstants({ state, commit, dispatch }, methodName) {
-
     try {
-      let MyContract = await new global.web3.eth.Contract(state.contract.abi, state.contract.address);
+      let MyContract = await new global.web3.eth.Contract(
+        state.contract.abi,
+        state.contract.address,
+      );
       const call = contractInstance.methods[methodName]
         .apply(contractInstance.methods[methodName])
         .call()
@@ -202,7 +195,6 @@ const actions = {
           // console.log('dapp drawer');
           functions[method.name] = res;
         });
-
 
       //this.functions[methodName] = res;
       console.log(res);
@@ -215,8 +207,6 @@ const actions = {
 
     // return Promise.resolve(res);
   },
-
-
 
   async readContract({ dispatch, commit, state }) {
     const contractInstance = new global.web3.eth.Contract(
@@ -242,17 +232,15 @@ const actions = {
     }
   },
 
-
   createNotify({ dispatch }, message) {
     Notify.create({
       message: message,
       color: 'primary',
       textColor: 'white', // if default 'white' doesn't fits
       icon: 'memory',
-    })
-  }
-
-}
+    });
+  },
+};
 
 export default {
   namespaced: true,

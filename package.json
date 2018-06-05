@@ -1,33 +1,39 @@
 {
-  "name": "quasar-dapp",
+  "name": "vue-escrow-dapp",
   "version": "1.0.0",
-  "description": "Quasar v0.15 DApp boilerplate with web3 provider either via browser injection or infura on mobile devices",
-  "productName": "Quasar DApp",
-  "cordovaId": "org.cordova.quasar.app",
+  "description": "UI for mad-escrow-solidity built with Quasar Framework, Web3js 1.0, Vuex, and Vue-Router",
+  "productName": "Vue Escrow Dapp",
   "author": "Ryan Hendricks <RyanHendricks@gmail.com>",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0",
     "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src test",
-    "netlify": "npm install && quasar dev -m pwa"
+    "build": "quasar build",
+    "start": "node server.js",
+    "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
+    "netlify": "npm install && quasar build && npm start"
   },
   "dependencies": {
-    "http-server": "^0.11.1",
     "web3": "1.0.0-beta.34",
-    "web3-provider-engine": "^13.8.0"
+    "web3-provider-engine": "^13.8.0",
+    "connect-history-api-fallback": "^1.5.0",
+    "express": "^4.16.3",
+    "http-server": "^0.11.1",
+    "serve-static": "^1.13.2"
   },
   "devDependencies": {
-    "web3": "1.0.0-beta.34",
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-vue": "^4.5.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-vue": "^4.0.0",
     "prettier-eslint": "^8.8.1",
-    "quasar-cli": "^0.15.18"
+    "quasar-cli": "^0.16.4"
   },
   "engines": {
     "node": ">= 8.9.0",
