@@ -9,17 +9,11 @@
     "test": "echo \"No test specified\" && exit 0",
     "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src test",
     "build": "quasar build",
-    "start": "node server.js",
-    "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
-    "netlify": "npm install && quasar build && npm start"
+    "start": "node server.js"
   },
   "dependencies": {
     "web3": "1.0.0-beta.34",
-    "web3-provider-engine": "^13.8.0",
-    "connect-history-api-fallback": "^1.5.0",
-    "express": "^4.16.3",
-    "http-server": "^0.11.1",
-    "serve-static": "^1.13.2"
+    "web3-provider-engine": "^13.8.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
