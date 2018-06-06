@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import Web3 from 'web3';
 // import utils from 'web3-utils';
 import mutations from './mutations';
@@ -16,14 +14,14 @@ import ZeroClientProvider from 'web3-provider-engine/zero.js';
 // rpcUrl: 'https://kovan.infura.io',
 
 const actions = {
-  async initWeb3({ state, commit, dispatch }) {
+  async initWeb3({ commit, dispatch }) {
     await new Promise((resolve, reject) => {
       if (global.web3) {
-        var web3Provider = global.web3.currentProvider;
+        const web3Provider = global.web3.currentProvider;
       } else {
         commit('SET_HOST', state.fallbackHost);
         web3Provider = ZeroClientProvider({
-          getAccounts: function() {},
+          getAccounts() {},
           rpcUrl: state.rpcUrl,
         });
       }
@@ -46,17 +44,16 @@ const actions = {
     await dispatch('getGasPrice');
     await dispatch('checkConnection');
     await dispatch('checkAccount');
-
   },
-  async checkNetwork({ state, commit, dispatch }) {
+  async checkNetwork({ commit, dispatch }) {
     try {
       const network = await global.web3.eth.net.getId();
       commit('UPDATE_NETWORK', network);
-    } catch(e) {
+    } catch (e) {
       dispatch('settings/createNotify', e);
     }
   },
-  async checkAccount({ state, commit, dispatch }) {
+  async checkAccount({ commit, dispatch }) {
     await global.web3.eth.getAccounts((error, accounts) => {
       if (error) throw new Error(error);
       if (accounts.length && state.account !== accounts[0]) {
@@ -66,7 +63,7 @@ const actions = {
         dispatch('getBalance', accounts[0]);
       } else if (!accounts.length) {
         commit('UPDATE_UNLOCKED', false);
-        commit('UPDATE_ACCOUNT', "Please Unlock Metamask");
+        commit('UPDATE_ACCOUNT', 'Please Unlock Metamask');
       }
     });
   },
@@ -99,7 +96,7 @@ const actions = {
     await global.web3.eth.getGasPrice((err, rawprice) => {
       if (err) throw new Error(err);
       if (rawprice) {
-        let gasPrice = global.web3.utils.fromWei(rawprice, 'ether').toString(10) * 1000000000;
+        const gasPrice = global.web3.utils.fromWei(rawprice, 'ether').toString(10) * 1000000000;
         commit('UPDATE_GASPRICE', gasPrice);
       }
     });

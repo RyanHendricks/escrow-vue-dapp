@@ -9,10 +9,10 @@ module.exports = {
   },
   // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
   // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-  "extends": ['eslint:recommended', 'plugin:vue/recommended', 'airbnb-base'],
+  extends: ['plugin:vue/recommended', 'airbnb-base'],
   // required to lint *.vue files
   plugins: [
-    'vue',
+    'vue'
   ],
   globals: {
     'ga': true, // Google Analytics
@@ -22,8 +22,6 @@ module.exports = {
   // add your custom rules here
   'rules': {
     'no-param-reassign': 0,
-    'handle-callback-err': [2, '^(err|error)$' ],
-
 
     'import/first': 0,
     'import/named': 2,

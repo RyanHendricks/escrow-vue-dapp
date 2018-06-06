@@ -1,47 +1,37 @@
 {
-  "name": "vue-escrow-dapp",
+  "name": "escrow-dapp-vue",
   "version": "1.0.0",
-  "description": "UI for mad-escrow-solidity built with Quasar Framework, Web3js 1.0, Vuex, and Vue-Router",
-  "productName": "Vue Escrow Dapp",
-  "author": "Ryan Hendricks <RyanHendricks@gmail.com>",
+  "description": "UI for Solidity Escrow built with Quasar Framework, Vuejs, and Web3js 1.0.",
+  "productName": "Escrow Dapp ",
+  "cordovaId": "org.cordova.quasar.app",
+  "author": "Ryan H <ryanhendricks@gmail.com>",
+  "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
-    "test": "echo \"No test specified\" && exit 0",
-    "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src test",
-    "build": "quasar build",
-    "start": "node server.js"
+    "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "web3": "1.0.0-beta.34",
+    "web3": "^1.0.0-beta.34",
     "web3-provider-engine": "^13.8.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "eslint": "^4.19.1",
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-vue": "^4.0.0",
-    "prettier-eslint": "^8.8.1",
-    "quasar-cli": "^0.16.4"
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-vue": "^4.3.0",
+    "quasar-cli": "^0.16.0"
   },
   "engines": {
     "node": ">= 8.9.0",
-    "npm": ">= 5.6.0"
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 10"
-  ],
-  "main": "https://ryanhendricks.github.io/quasar-dapp/",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RyanHendricks/quasar-dapp.git"
-  },
-  "license": "MIT"
+  ]
 }

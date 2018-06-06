@@ -4,7 +4,6 @@ export default {
   balance: null,
   network: null,
   unlocked: null,
-  rpcUrl: null,
   blockNumber: null,
   gasPrice: null,
   fallbackHost: 'http://127.0.0.1:8545',
@@ -12,4 +11,5 @@ export default {
   isInjected: null,
   provider: null,
   metamaskDisabled: false,
+  rpcUrl: 'wss://ropsten.infura.io/ws',
 };

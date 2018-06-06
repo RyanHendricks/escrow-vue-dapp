@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import SendETH from '.././components/SendETH';
+import SendETH from '.././components/SendETH.vue';
 
 export default {
   name: 'SendETH',
