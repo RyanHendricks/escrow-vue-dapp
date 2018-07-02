@@ -22,12 +22,23 @@
         <div slot="subtitle">Buyer: {{ functions.buyer }} </div>
         <div slot="subtitle">Seller: {{ functions.seller }} </div>
       </q-toolbar-title>
+
       <q-btn
         flat
+        round
         @click="drawerState = !drawerState"
       >
-        <q-icon name="language" />
+        <q-icon name="network_check" />
       </q-btn>
+
+      <q-btn
+        flat
+        round
+        @click="$router.push('/Help')"
+      >
+        <q-icon name="help" />
+      </q-btn>
+
     </q-toolbar>
 
   </q-layout-footer>

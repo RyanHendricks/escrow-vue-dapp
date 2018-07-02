@@ -14,6 +14,9 @@ export const SET_CONTRACT_NETWORK = (state, val) => {
 
 export const SET_CONTRACT_ABI = (state, val) => {
   state.contract.abi = val;
+  state.deployerVisible = false;
+  state.loaderVisible = false;
+  state.interfaceVisible = true;
 };
 export const SET_CONTRACT_BIN = (state, val) => {
   state.contract.bin = val;
@@ -30,4 +33,3 @@ export const SET_CONTRACT_METHOD_VALUE = (state, val) => {
 export const SET_BUYER = (state, val) => {
   state.buyer = val;
 };
-

@@ -78,13 +78,14 @@ export default {
               .apply(contractInstance.methods[method.name])
               .call()
               .then((res) => {
-                console.log(res.toString());
+                // console.log(res.toString());
                 this.functions[method.name] = res;
                 return this.functions[method.name];
               });
           }
         } catch (e) {
-          console.log(e);
+          // return e;
+          // console.error(e);
         }
       });
       this.$store.dispatch('ethcontract/setMethodValues', this.functions);

@@ -1,5 +1,5 @@
 export default {
-  updateInterval: 6000,
+  updateInterval: 2000,
   account: null,
   balance: null,
   network: null,

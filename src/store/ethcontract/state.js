@@ -9,4 +9,7 @@ export default {
   instance: '',
   value: '',
   functions: {},
+  deployerVisible: true,
+  loaderVisible: true,
+  interfaceVisible: false,
 };

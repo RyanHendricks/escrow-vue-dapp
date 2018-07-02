@@ -5,7 +5,7 @@
     <!-- Input for Buyer Address -->
     <q-field
       class="q-pa-md"
-      icon="all inclusive"
+      icon="shopping_cart"
       helper="Enter the address of the buyer.">
       <q-input
         v-model="buyer"
@@ -15,7 +15,7 @@
     <!-- Input for Seller Address -->
     <q-field
       class="q-pa-md"
-      icon="spa"
+      icon="store"
       helper="Enter the address of the seller">
       <q-input
         v-model="seller"
@@ -26,7 +26,7 @@
     <q-field
       dense
       class="q-pa-md"
-      icon="beach access"
+      icon="money"
       helper="Amount of ETH buyer to pay (total)"
       label="ETH">
       <q-input
@@ -35,13 +35,18 @@
     </q-field>
 
     <!-- Deploy Contract Button -->
-    <q-btn
-      :disable="!this.$store.state.ethengine.unlocked"
-      label="Create Contract"
-      color="secondary"
-      class="inverted"
-      @click="createEscrowContract()" />
-    {{ this.$store.state.ethengine.account }}
+    <q-field
+      :helper="this.$store.state.ethengine.account"
+      class="q-pa-xs"
+    >
+      <q-btn
+        :disable="!this.$store.state.ethengine.unlocked"
+        label="Create Contract"
+        color="secondary"
+        class="inverted"
+        @click="deployContract()" />
+    </q-field>
+
   </div>
 </template>
 
@@ -56,25 +61,27 @@ export default {
       buyer: '0x7d07c87Ae4173AdA4C1F3befe7118c52dD237725',
       seller: '0x0086a78521179cF58eA9B103FDA754F4f169DeBe',
       purchaseAmount: '1',
-      network: 3,
       unlocked: this.$store.state.ethengine.unlocked,
     };
   },
   methods: {
-    createEscrowContract() {
-      if (this.buyer.length !== 42 && this.buyer.substr(0, 2) !== '0x') {
-        return null;
-      } else if (this.seller.length !== 42 && this.seller.substr(0, 2) !== '0x') {
-        return null;
-      }
+    async deployContract() {
+      /**
+      try {
+        if ((this.buyer.length !== 42) || (this.seller.length !== 42)) {
+          throw new error(error);
+        } else if ((this.buyer.substr(0, 2) !== '0x') || (this.seller.substr(0, 2) !== '0x')) {
+          return null;
+        }
+        */
       const payload = {
-        veobuyer: this.buyer,
-        veoseller: this.seller,
+        buyer: this.buyer,
+        seller: this.seller,
         amount: this.purchaseAmount,
-        // fromAddress: this.$store.state.ethengine.account,
         // abi: JSON.parse(VeoEscrowArtifacts.abi),
       };
-      return this.$store.dispatch('ethcontract/deployEscrowContract', payload);
+
+      await this.$store.dispatch('ethcontract/deployContract', payload);
     },
   },
 };

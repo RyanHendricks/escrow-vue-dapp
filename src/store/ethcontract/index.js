@@ -10,31 +10,27 @@ import VeoEscrowArtifacts from './VeoEscrow.js'
 const actions = {
 
 
-  async deployEscrowContract({ rootState, commit, dispatch }, payload) {
-    const abi = JSON.parse(VeoEscrowArtifacts.abi);
-    const bin = VeoEscrowArtifacts.bin;
-    commit('SET_CONTRACT_ABI', abi);
-    commit('SET_CONTRACT_BIN', bin);
+  async deployContract({ rootState, state, commit, dispatch }, payload) {
+    
+    // const abi = JSON.parse(VeoEscrowArtifacts.abi);
+    // const bin = VeoEscrowArtifacts.bin;
+    await commit('SET_CONTRACT_ABI', JSON.parse(VeoEscrowArtifacts.abi));
+    await commit('SET_CONTRACT_BIN', VeoEscrowArtifacts.bin);
     const fromAddress = rootState.ethengine.account;
-    const buyer = payload.veobuyer;
-    const seller = payload.veoseller;
-    const amount = payload.amount;
-    console.log(abi);
-    console.log(bin);
-    console.log(fromAddress);
-    console.log(buyer);
-    console.log(seller);
-    console.log(amount);
+    ///const buyer = ;
+    //const seller = ;
+    //const amount = ;
+    
 
-    const EscrowContract = new global.web3.eth.Contract(state.contract.abi);
-    EscrowContract.options.data = bin;
+    const EscrowContract = await new global.web3.eth.Contract(JSON.parse(VeoEscrowArtifacts.abi));
+    EscrowContract.options.data = VeoEscrowArtifacts.bin;
     try {
       await EscrowContract.deploy({
-        arguments: [buyer, seller, amount]
+        arguments: [payload.buyer, payload.seller, payload.amount]
       })
         .send({ from: fromAddress })
         .on('error', (error) => {
-          console.log(error);
+          dispatch('createNotify', error.toString());
         })
         .on('transactionHash', (hash) => {
           console.log(hash);
@@ -43,19 +39,16 @@ const actions = {
         })
         .on('receipt', (receipt) => {
           let ContractAddress = receipt.contractAddress;
-          console.log(ContractAddress); // contains the new contract address 
-          dispatch('createNotify', contractAddress);
+          dispatch('createNotify', contractAddress.toString());
           commit('SET_CONTRACT_ADDRESS', ContractAddress);
-
         })
         .then((newContractInstance) => {
           const contractAddress = newContractInstance.options.address;
           commit('SET_CONTRACT_INSTANCE', newContractInstance);
           commit('SET_CONTRACT_ADDRESS', contractAddress);
-
         });
     } catch (e) {
-      console.error(e);
+      dispatch('createNotify', e);
     }
     // commit('SET_CONTRACT_ADDRESS', constractAddress); 
     // dispatch('callConstants'); 

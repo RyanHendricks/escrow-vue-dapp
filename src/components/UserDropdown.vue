@@ -4,7 +4,6 @@
       <q-btn-dropdown
         flat
         icon="account balance wallet"
-        label="Wallet"
       >
         <!-- dropdown content -->
         <q-list
@@ -24,6 +23,7 @@
           </q-item>
         </q-list>
       </q-btn-dropdown>
+
     </div>
     <div v-if="unlocked === false && isInjected === false">
       <q-btn

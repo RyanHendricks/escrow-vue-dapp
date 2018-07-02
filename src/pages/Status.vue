@@ -16,7 +16,6 @@
         <!-- <q-card-title class="q-pa-lg">{{ method.name }}</q-card-title>
         <q-card-subtitle>{{ method.type }}</q-card-subtitle> -->
         <q-field
-
           :label="functions[method.name].toString()"
           class="q-pa-md"
           icon="wifi">

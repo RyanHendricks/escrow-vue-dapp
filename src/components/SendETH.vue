@@ -33,9 +33,24 @@
 export default {
   name: 'SendETH',
   data: () => ({
-    toAddress: this.$store.state.ethcontract.contract.address,
+    // toAddress: ,
     amount: '',
   }),
+  computed: {
+    toAddress: {
+      get() {
+        const contractBuyer = this.$store.state.ethcontract.functions.buyer;
+        const contractSeller = this.$store.state.ethcontract.functions.seller;
+        const currentUser = this.$store.state.ethengine.account;
+        if (currentUser === contractBuyer) {
+          return contractSeller;
+        } else if (currentUser === contractSeller) {
+          return contractBuyer;
+        }
+        return '';
+      },
+    },
+  },
   methods: {
     async sendTransaction() {
       try {
@@ -46,7 +61,7 @@ export default {
         };
         await this.$store.dispatch('ethcontract/sendTransaction', txnPayload);
       } catch (e) {
-        this.$store.dispatch('ethcontract/createNotify', e.toString());
+        this.$store.dispatch('ethcontract/createNotify', e);
       }
     },
   },

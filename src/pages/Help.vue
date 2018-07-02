@@ -3,18 +3,16 @@
     padding
     class="row justify-center">
     <div style="width: 600px; max-width: 90vw;">
-      <SendETH />
+      Help
     </div>
   </q-page>
 </template>
 
 <script>
-import SendETH from '.././components/SendETH';
 
 export default {
-  name: 'SendETH',
+  name: 'Help',
   components: {
-    SendETH,
   },
   data() {
     return {};

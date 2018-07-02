@@ -22,27 +22,30 @@
         <q-route-tab
           slot="title"
           icon="send"
-          to="/SendETH"
+          to="/Send"
           replace
+          exact
           label="Send ETH"
         />
         <q-route-tab
           slot="title"
           icon="spa"
-          to="/Status"
+          to="/About"
           replace
-          label="Status"
+          exact
+          label="About"
         />
         <q-route-tab
           slot="title"
-          icon="toys"
-          to="/Info"
+          icon="help"
+          to="/Help"
           replace
-          label="Info/About"
+          label="Help"
         />
 
       </q-tabs>
       <q-toolbar-title />
+
       <UserDropdown />
     </q-toolbar>
   </q-layout-header>

@@ -5,8 +5,9 @@ export default [
     component: () => import('layouts/default'),
     children: [
       { path: '', component: () => import('pages/index') },
-      { path: 'SendETH/', component: () => import('pages/SendETH') },
-      { path: 'Status/', component: () => import('pages/Status') },
+      { path: 'Send/', component: () => import('pages/Send') },
+      { path: 'About/', component: () => import('pages/About') },
+      { path: 'Help/', component: () => import('pages/Help') },
     ],
   },
   { // Always leave this as last one
