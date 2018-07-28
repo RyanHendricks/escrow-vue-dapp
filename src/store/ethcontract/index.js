@@ -86,6 +86,7 @@ const actions = {
       await commit('SET_CONTRACT_ABI', payload.abi);
       let MyContract = await new global.web3.eth.Contract(state.contract.abi, state.contract.address);
       await commit('SET_CONTRACT_INSTANCE', MyContract);
+      dispatch('readContractConstants');
       let address = payload.address;
       dispatch('createNotify', 'Contract Loaded');
       // dispatch('readContract');
@@ -94,6 +95,31 @@ const actions = {
       console.log(e);
     }
 
+  },
+
+  async readContractConstants({ commit, dispatch }) {
+    try {
+      const contractInstance = new global.web3.eth.Contract(state.contract.abi, state.contract.address);
+      let functions = {};
+      await state.contract.abi.forEach((method) => {
+        console.log(state.contract.abi);
+        // console.log(this.$store.state.ethcontract.contract.address);
+        if (method.inputs.length === 0) {
+          contractInstance.methods[method.name]
+            .apply(contractInstance.methods[method.name])
+            .call()
+            .then((res) => {
+            console.log(res.toString());
+              functions[method.name] = res;
+              return functions[method.name];
+            });
+        }
+      });
+      commit('SET_CONTRACT_METHOD_VALUE', functions);
+      dispatch('setMethodValues', functions);
+    } catch (e) {
+      throw new Error(e);
+    }
   },
 
   async setMethodValues({ commit, state }, payload) {
@@ -183,31 +209,31 @@ const actions = {
     })
   },
 
-  async readContractConstants({ state, commit, dispatch }, methodName) {
+  // async readContractConstants({ state, commit, dispatch }, methodName) {
 
-    try {
-      let MyContract = await new global.web3.eth.Contract(state.contract.abi, state.contract.address);
-      const call = contractInstance.methods[methodName]
-        .apply(contractInstance.methods[methodName])
-        .call()
-        .then(res => {
-          console.log(res.toString());
-          // console.log('dapp drawer');
-          functions[method.name] = res;
-        });
+  //   try {
+  //     let MyContract = await new global.web3.eth.Contract(state.contract.abi, state.contract.address);
+  //     const call = contractInstance.methods[methodName]
+  //       .apply(contractInstance.methods[methodName])
+  //       .call()
+  //       .then(res => {
+  //         console.log(res.toString());
+  //         // console.log('dapp drawer');
+  //         functions[method.name] = res;
+  //       });
 
 
-      //this.functions[methodName] = res;
-      console.log(res);
-      console.log('vuex readContractConstants');
+  //     //this.functions[methodName] = res;
+  //     console.log(res);
+  //     console.log('vuex readContractConstants');
 
-      // this.functions[methodName] = res;
-    } catch (e) {
-      dispatch('createNotify', e);
-    }
+  //     // this.functions[methodName] = res;
+  //   } catch (e) {
+  //     dispatch('createNotify', e);
+  //   }
 
-    // return Promise.resolve(res);
-  },
+  //   // return Promise.resolve(res);
+  // },
 
 
 
