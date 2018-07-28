@@ -30,7 +30,13 @@
       >
         <q-icon name="network_check" />
       </q-btn>
-
+      <q-btn
+        flat
+        round
+        @click="$router.push('/Settings')"
+      >
+        <q-icon name="settings" />
+      </q-btn>
       <q-btn
         flat
         round
