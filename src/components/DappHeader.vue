@@ -4,12 +4,12 @@
       class="no-shadow"
       color="primary"
       inverted
-      flat
-    >
+      flat>
+
       <q-tabs
+        v-if="headerIcons === true"
         align="justify"
-        inverted
-      >
+        inverted>
         <q-route-tab
           slot="title"
           icon="all inclusive"
@@ -35,15 +35,36 @@
           exact
           label="About"
         />
+      </q-tabs>
+
+      <q-tabs
+        v-if="headerIcons === false"
+        align="justify"
+        inverted>
         <q-route-tab
           slot="title"
-          icon="help"
-          to="/Help"
+          to="/"
           replace
-          label="Help"
+          default
+          exact
+          label="Escrow"
         />
-
+        <q-route-tab
+          slot="title"
+          to="/Send"
+          replace
+          exact
+          label="Send ETH"
+        />
+        <q-route-tab
+          slot="title"
+          to="/About"
+          replace
+          exact
+          label="About"
+        />
       </q-tabs>
+
       <q-toolbar-title />
 
       <UserDropdown />
@@ -67,7 +88,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('settings', ['headerReveal', 'header']),
+    ...mapState('settings', ['headerReveal', 'header', 'headerIcons']),
     drawerState: {
       get() {
         return this.$store.state.settings.drawerState;

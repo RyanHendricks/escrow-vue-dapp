@@ -8,4 +8,6 @@ export default {
   leftOverlay: true,
   drawerStateR: false,
   rightOverlay: false,
+
+  headerIcons: true,
 };
