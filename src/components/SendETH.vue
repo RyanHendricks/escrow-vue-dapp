@@ -33,23 +33,11 @@
 export default {
   name: 'SendETH',
   data: () => ({
-    // toAddress: ,
+    toAddress: '',
     amount: '',
   }),
   computed: {
-    toAddress: {
-      get() {
-        const contractBuyer = this.$store.state.ethcontract.functions.buyer;
-        const contractSeller = this.$store.state.ethcontract.functions.seller;
-        const currentUser = this.$store.state.ethengine.account;
-        if (currentUser === contractBuyer) {
-          return contractSeller;
-        } else if (currentUser === contractSeller) {
-          return contractBuyer;
-        }
-        return '';
-      },
-    },
+
   },
   methods: {
     async sendTransaction() {
