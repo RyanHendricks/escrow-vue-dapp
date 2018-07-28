@@ -42,6 +42,6 @@ quasar build -m pwa
 ### Docker
 
 ```bash
-docker build --rm -f $/quasar-dapp/Dockerfile -t quasar-dapp:latest test/quasar-dapp
+docker build --rm -f $/Dockerfile -t escrow-vue-dapp:latest test/escrow-vue-dapp
 docker run --rm -it -p 8080:8080 quasar-dapp:latest
 ```
