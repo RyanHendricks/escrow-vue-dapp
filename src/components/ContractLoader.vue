@@ -55,7 +55,7 @@ export default {
         // Add necessary elements to the contract object
         const contract = {
           address: this.address,
-          abi: JSON.parse(this.abi),
+          abi: this.abi,
         };
         // dispatch contract object to vuex
         await this.$store.dispatch('ethcontract/createContractInstance', contract);

@@ -26,8 +26,10 @@ export const SET_TXN_HASH = (state, val) => {
   state.contract.hash = val;
 };
 
-export const SET_CONTRACT_METHOD_VALUE = (state, val) => {
-  state.functions = val;
+export const SET_CONTRACT_METHOD_VALUE = (state, payload) => {
+  // const tempState = state.functions;
+  // state.functions = Object.assign({}, tempState, payload);
+  Object.assign(state.functions, { [payload.name]: payload });
 };
 
 export const SET_BUYER = (state, val) => {

@@ -6,7 +6,6 @@ export default {
     hash: '',
     bin: '',
   },
-  instance: '',
   value: '',
   functions: {},
   deployerVisible: true,

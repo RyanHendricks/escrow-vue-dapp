@@ -4,11 +4,10 @@
       <q-btn-dropdown
         flat
         icon="account balance wallet"
+
       >
         <!-- dropdown content -->
         <q-list
-          no-border
-          link
           dense
           inset-delimiter
         >
@@ -28,16 +27,17 @@
     <div v-if="unlocked === false && isInjected === false">
       <q-btn
         flat
-        color="primary">
-        Please Install Metamask
-      </q-btn>
+        color="primary"
+        text-color="neutral"
+        label="Please Install Metamask" />
     </div>
     <div v-if="unlocked === false && isInjected === true">
       <q-btn
         flat
-        color="primary">
-        Please Unlock Metamask
-      </q-btn>
+        color="primary"
+        text-color="neutral"
+        label="Please Unlock Metamask"
+      />
     </div>
   </div>
 </template>
