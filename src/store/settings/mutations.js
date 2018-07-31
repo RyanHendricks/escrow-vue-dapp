@@ -23,3 +23,6 @@ export const setLeftOverlay = (state, val) => {
 export const updateDrawerStateR = (state, val) => {
   state.drawerStateR = val;
 };
+export const SET_PRIMARY_COLOR = (state, val) => {
+  state.primaryColor = val;
+};

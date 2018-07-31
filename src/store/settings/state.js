@@ -10,4 +10,7 @@ export default {
   rightOverlay: false,
 
   headerIcons: true,
+  invertColors: true,
+
+  primaryColor: '#012689',
 };

@@ -1,15 +1,20 @@
 <template>
   <q-layout-header class="shadow-1">
     <q-toolbar
+      :style="{ color: primaryColor }"
+      :inverted="invertColors"
+      :color="primaryColor"
       class="no-shadow"
-      color="primary"
-      inverted
       flat>
 
       <q-tabs
         v-if="headerIcons === true"
+        :inverted="invertColors"
+        :color="primaryColor"
         align="justify"
-        inverted>
+
+
+      >
         <q-route-tab
           slot="title"
           icon="all inclusive"
@@ -84,11 +89,18 @@ export default {
   data() {
     return {
       dropdown: false,
-      title: 'Veo Escrow',
     };
   },
   computed: {
-    ...mapState('settings', ['headerReveal', 'header', 'headerIcons']),
+    ...mapState('settings', ['headerReveal', 'header', 'headerIcons', 'invertColors', 'primaryColor']),
+    primaryColor: {
+      get() {
+        return this.$store.state.settings.primaryColor;
+      },
+      set(val) {
+        this.$store.dispatch('settings/setPrimaryColor', val);
+      },
+    },
     drawerState: {
       get() {
         return this.$store.state.settings.drawerState;
