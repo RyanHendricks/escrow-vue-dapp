@@ -3,6 +3,7 @@
     no-border
     link
     inset-delimiter>
+
     <p class="caption">Layout Settings</p>
     <q-field
       color="primary"
@@ -10,44 +11,87 @@
       icon-color="secondary"
       label="Layout"
       helper="Adjust dApp Layout">
+
       <div>
         <q-toggle
           v-model="header"
           class="q-pa-sm"
           label="Header" />
       </div>
+
       <div>
         <q-toggle
           v-model="headerReveal"
           class="q-pa-sm"
           label="Header Reveal" />
       </div>
+
       <div>
         <q-toggle
           v-model="footer"
           class="q-pa-sm"
           label="Footer" />
       </div>
+
       <div>
         <q-toggle
           v-model="footerReveal"
           class="q-pa-sm"
           label="Footer Reveal" />
       </div>
+
       <div>
         <q-toggle
           v-model="leftOverlay"
           class="q-pa-sm"
-          label="Desktop Mode" />
+          label="Left Overlay" />
       </div>
+
+      <!-- <div>
+        <q-toggle
+          v-model="rightOverlay"
+          class="q-pa-sm"
+          label="Right Overlay" />
+      </div> -->
+
     </q-field>
-    <q-item-separator />
-  </q-list>
+
+    <p class="caption">Theme Settings</p>
+    <q-field
+      color="primary"
+      icon="brush"
+      icon-color="secondary"
+      label="Theme"
+      helper="Adjust dApp Theme">
+
+      <div>
+        <q-toggle
+          v-model="headerIcons"
+          class="q-pa-sm"
+          label="Header Icons" />
+      </div>
+
+      <div>
+        <q-toggle
+          v-model="invertColors"
+          class="q-pa-sm"
+          label="Invert Colors" />
+      </div>
+
+      <div>
+        <template>
+          <q-color-picker v-model="modelHex" />
+        </template>
+
+      </div>
+
+      <q-item-separator />
+  </q-field></q-list>
 </template>
 
 <script>
 export default {
-  name: 'LayoutSettings',
+  name: 'DappSettings',
   data() {
     return {};
   },
@@ -90,6 +134,30 @@ export default {
       },
       set(val) {
         this.$store.commit('settings/setLeftOverlay', val);
+      },
+    },
+    modelHex: {
+      get() {
+        return this.$store.state.settings.primaryColor;
+      },
+      set(val) {
+        this.$store.dispatch('settings/setPrimaryColor', val);
+      },
+    },
+    headerIcons: {
+      get() {
+        return this.$store.state.settings.headerIcons;
+      },
+      set(val) {
+        this.$store.commit('settings/TOGGLE_HEADER_ICONS', val);
+      },
+    },
+    invertColors: {
+      get() {
+        return this.$store.state.settings.invertColors;
+      },
+      set(val) {
+        this.$store.commit('settings/INVERT_COLORS', val);
       },
     },
   },

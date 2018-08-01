@@ -26,3 +26,9 @@ export const updateDrawerStateR = (state, val) => {
 export const SET_PRIMARY_COLOR = (state, val) => {
   state.primaryColor = val;
 };
+export const INVERT_COLORS = (state, val) => {
+  state.invertColors = val;
+};
+export const TOGGLE_HEADER_ICONS = (state, val) => {
+  state.headerIcons = val;
+};

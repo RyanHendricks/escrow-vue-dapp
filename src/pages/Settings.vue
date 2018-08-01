@@ -4,9 +4,7 @@
     class="row justify-center">
     <div style="width: 600px; max-width: 90vw;">
       Settings
-      <template>
-        <q-color-picker v-model="modelHex" />
-      </template>
+      <DappSettings />
 
 
     </div>
@@ -14,10 +12,12 @@
 </template>
 
 <script>
+import DappSettings from '.././components/settings/DappSettings';
 
 export default {
   name: 'Settings',
   components: {
+    DappSettings,
   },
   data: () => ({
     // modelHex: '#C7044B',

@@ -1,5 +1,8 @@
 <template>
-  <q-layout-header class="shadow-1">
+  <q-layout-header
+    v-model="header"
+    :reveal="headerReveal"
+    class="shadow-1">
     <q-toolbar
       :style="{ color: primaryColor }"
       :inverted="invertColors"
