@@ -9,8 +9,7 @@
       color="primary"
       icon="dashboard"
       icon-color="secondary"
-      label="Layout"
-      helper="Adjust dApp Layout">
+      label="Layout">
 
       <div>
         <q-toggle
@@ -61,8 +60,7 @@
       color="primary"
       icon="brush"
       icon-color="secondary"
-      label="Theme"
-      helper="Adjust dApp Theme">
+      label="Theme">
 
       <div>
         <q-toggle

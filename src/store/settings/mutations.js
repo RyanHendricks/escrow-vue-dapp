@@ -26,6 +26,12 @@ export const updateDrawerStateR = (state, val) => {
 export const SET_PRIMARY_COLOR = (state, val) => {
   state.primaryColor = val;
 };
+export const SET_SECONDARY_COLOR = (state, val) => {
+  state.primaryColor = val;
+};
+export const SET_TERTIARY_COLOR = (state, val) => {
+  state.primaryColor = val;
+};
 export const INVERT_COLORS = (state, val) => {
   state.invertColors = val;
 };
